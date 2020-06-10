@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Analtyics accounts</title>
+</head>
+<body>
+    <ul class="list-group">
+        <% data.data.items.forEach(function(entry) {%>
+            <li>
+                <a href="/views/<%= entry.id%>?start_date=30daysAgo&end_date=today&metrics=ga:sessions,ga:pageviews,ga:users" class="list-group-item text-dark"><%=entry.webPropertyId%></a>
+            </li>
+        <%});%>
+    </ul>
+</body>
+</html>
