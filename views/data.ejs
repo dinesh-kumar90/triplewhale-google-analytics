@@ -9,7 +9,7 @@
     <ul class="list-group">
         <% data.data.items.forEach(function(entry) {%>
             <li>
-                <a href="/views/<%= entry.id%>?start_date=30daysAgo&end_date=today&metrics=ga:sessions,ga:pageviews,ga:users" class="list-group-item text-dark"><%=entry.webPropertyId%></a>
+                <a href="/views/<%= entry.id%>?start_date=30daysAgo&end_date=today&metrics=ga:adClicks,ga:adCost,ga:sessions,ga:pageviews,ga:users&dimensions=ga:adwordsCampaignID" class="list-group-item text-dark"><%=entry.webPropertyId%></a>
             </li>
         <%});%>
     </ul>

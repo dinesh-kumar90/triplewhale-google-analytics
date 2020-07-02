@@ -25,9 +25,9 @@ app.use(express.static('./public'));
 const analytics = google.analytics('v3');
 
 const googleConfig = {
-  clientId: process.env.CLIENTID || '', // e.g. asdfghjkljhgfdsghjk.apps.googleusercontent.com
-  clientSecret: process.env.CLIENTSECRET || '', // e.g. _ASDFA%DFASDFASDFASD#FAD-
-  redirect: process.env.REDIRECT || '', // this must match your google api settings
+  clientId: '110130317885-ppfka8as7fp3tbnjo4dtp46lk5fnof65.apps.googleusercontent.com', // e.g. asdfghjkljhgfdsghjk.apps.googleusercontent.com
+  clientSecret: 'pFmzGZTD0ENQliIF2icL-Ykp', // e.g. _ASDFA%DFASDFASDFASD#FAD-
+  redirect: 'https://blooming-spire-20916.herokuapp.com/callback', // this must match your google api settings
 };
 
 const defaultScope = [
@@ -76,6 +76,7 @@ app.get('/views/:viewId', async function (req, res) {
   const startDate = req.query.start_date;
   const endDate = req.query.end_date;
   const metrics = req.query.metrics;
+  const dimensions = req.query.dimensions;
 
   if (req.session.tokens) {
     const auth = createConnection();
@@ -85,9 +86,10 @@ app.get('/views/:viewId', async function (req, res) {
       'ids': 'ga:'+viewId,
       'start-date': startDate,
       'end-date': endDate,
-      'metrics': metrics
+      'metrics': metrics,
+      'dimensions': dimensions
     });
-    res.send(JSON.stringify({ results: result.data.totalsForAllResults}));
+    res.send(JSON.stringify({ results: result}));
   } else {
     res.send(req.session.tokens);
   }
