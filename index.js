@@ -25,12 +25,13 @@ app.use(express.static('./public'));
 const analytics = google.analytics('v3');
 
 const googleConfig = {
-  clientId: '110130317885-ppfka8as7fp3tbnjo4dtp46lk5fnof65.apps.googleusercontent.com', // e.g. asdfghjkljhgfdsghjk.apps.googleusercontent.com
-  clientSecret: 'pFmzGZTD0ENQliIF2icL-Ykp', // e.g. _ASDFA%DFASDFASDFASD#FAD-
-  redirect: 'https://blooming-spire-20916.herokuapp.com/callback', // this must match your google api settings
+  clientId: '995066866741-a7i47umnhdm46fkb7lsruf5vo9eoek6u.apps.googleusercontent.com', // e.g. asdfghjkljhgfdsghjk.apps.googleusercontent.com
+  clientSecret: '90sd0KtVIXPOOyMs0JM5Z9rr', // e.g. _ASDFA%DFASDFASDFASD#FAD-
+  redirect: 'https://blooming-spire-209161.herokuapp.com/callback', // this must match your google api settings
 };
 
 const defaultScope = [
+  'https://www.googleapis.com/auth/analytics',
   'https://www.googleapis.com/auth/analytics.readonly',
   'https://www.googleapis.com/auth/userinfo.email',
 ];
@@ -77,7 +78,7 @@ app.get('/views/:viewId', async function (req, res) {
   const endDate = req.query.end_date;
   const metrics = req.query.metrics;
   const dimensions = req.query.dimensions;
-
+  const filters  = 'ga%3AadwordsCampaignID!%3D(not%20set)';
   if (req.session.tokens) {
     const auth = createConnection();
     auth.setCredentials(JSON.parse(req.session.tokens));
@@ -87,7 +88,8 @@ app.get('/views/:viewId', async function (req, res) {
       'start-date': startDate,
       'end-date': endDate,
       'metrics': metrics,
-      'dimensions': dimensions
+      'dimensions': dimensions,
+      'filters': filters
     });
     res.send(JSON.stringify({ results: result}));
   } else {
